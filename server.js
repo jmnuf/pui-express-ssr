@@ -14,7 +14,17 @@ async function createServer() {
 		res.json({
 			message: "Hello world",
 		});
-	})
+	});
+	app.get("/api/random-name", async (req, res) => {
+		const { names } = await import("./names.js");
+		const timeout_time = Math.floor(Math.random() * 3_500) + 500;
+		await new Promise(resolve => setTimeout(resolve, timeout_time));
+		const name = names[Math.floor(Math.random() * names.length)];
+		res.json({
+			name,
+			timeout_time,
+		})
+	});
   
 	const vite = await createViteServer({
 		server: { middlewareMode: true },

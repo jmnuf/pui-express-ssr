@@ -1,12 +1,15 @@
+import { Greet } from "./components/greet";
 
 export class ClientApp {
 	declare private _elem: HTMLDivElement;
 	subtitle: string;
 	hello_msg: string;
+	greet: ReturnType<typeof Greet>;
 
 	constructor() {
 		this.subtitle = "Foot Loose is the best cinematic musical, don't @ me";
 		this.hello_msg = "";
+		this.greet = Greet("Anon");
 	}
 
 	// This setter only runs on client, SSR should preferably not trigger events or bind to fake elements
@@ -32,5 +35,6 @@ export class ClientApp {
 		<h1>Being sane is the most insane thing to do</h1>
 		<h2>\${ subtitle }</h2>
 		<p>\${ hello_msg }</p>
+		<\${ greet === }>
 	</div>`;
 }
