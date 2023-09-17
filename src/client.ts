@@ -31,6 +31,6 @@ export class ClientApp {
 	static template = `<div id="app" pui="==>element">
 		<h1>Being sane is the most insane thing to do</h1>
 		<h2>\${ subtitle }</h2>
-		<p>\${ hello_message }</p>
+		<p>\${ hello_msg }</p>
 	</div>`;
 }

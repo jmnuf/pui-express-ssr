@@ -1,11 +1,16 @@
 export class ClientApp {
     subtitle;
+    hello_msg;
     constructor() {
         this.subtitle = "Foot Loose is the best cinematic musical, don't @ me";
+        this.hello_msg = "";
     }
+    // This setter only runs on client, SSR should preferably not trigger events or bind to fake elements
+    // This limits things but it's also a better design decision IMO cause
+    // element handling should be done on the client where you have the actual DOM
     set element(div) {
         this._elem = div;
-        // @ts-ignore
+        // @ts-ignore Just queueing to be sure everything is setup since a child might get their element after this class, IDK
         UI.queue(() => {
             console.log("Client has been hydrated");
         });
@@ -19,5 +24,6 @@ export class ClientApp {
     static template = `<div id="app" pui="==>element">
 		<h1>Being sane is the most insane thing to do</h1>
 		<h2>\${ subtitle }</h2>
+		<p>\${ hello_msg }</p>
 	</div>`;
 }

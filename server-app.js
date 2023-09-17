@@ -47,7 +47,7 @@ export class ServerApp {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>\${title}</title>
 		<script type="module" src="/src/index.ts"></script>
-		<\${ data === } \${ data <=* extraMeta }/>
+		<\${ data === } \${ data <=* extraData }/>
   </head>
   <body>
     <ClientApp/>

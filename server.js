@@ -8,8 +8,8 @@ async function createServer() {
 	const port = 3000;
 	const app = express()
 
-	// An api space for other stuff
-	app.get("/api/*", (req, res) => {
+	app.get("/api/hello", async (req, res) => {
+		await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 9_500) + 500));
 		console.log(req.body);
 		res.json({
 			message: "Hello world",
