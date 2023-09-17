@@ -5,7 +5,10 @@ export class ClientApp {
     }
     set element(div) {
         this._elem = div;
-        console.log("Client has been hydrated");
+        // @ts-ignore
+        UI.queue(() => {
+            console.log("Client has been hydrated");
+        });
     }
     get element() {
         return this._elem;

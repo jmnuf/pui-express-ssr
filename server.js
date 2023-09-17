@@ -23,10 +23,11 @@ async function createServer() {
 	
 	app.use(vite.middlewares);
 
-	// The actual SSR
 	app.use('*', async (req, res, next) => {
 		try {
 			const app = new ServerApp();
+			// I create my own request object based on the express request
+			// I wanted a normal http and didn't see how to extract it
 			const r = new Request(new URL(`${req.protocol}://${req.hostname}${
 				req.hostname == "localhost" ? `:${port}` : ""
 				}${req.url}`), {
@@ -37,11 +38,12 @@ async function createServer() {
 			await app.setup(r);
 			let html = generateHtml(app);
 			
-			// This is some vite stuff from https://vitejs.dev/guide/ssr.html
+			// This is some vite stuff which Idk what it does but it throws on some bindings from https://vitejs.dev/guide/ssr.html
 			// html = await vite.transformIndexHtml(req.originalUrl, html);
 	
 			res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
 		} catch (e) {
+			// Uses maps for redirecting certain errors back to my own scripts supposedly
 			vite.ssrFixStacktrace(e);
 			next(e);
 		}
