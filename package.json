@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm run build:server-client &&  node server.js",
-    "build": "tsc && vite build && pnpm run build:server-client",
+    "dev": "bun run build:server-client && bun server.js",
+    "build": "tsc && vite build && bun run build:server-client",
     "build:server-client": "bun build ./src/client.ts --outfile server/client.js"
   },
   "devDependencies": {
