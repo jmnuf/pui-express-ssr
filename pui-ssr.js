@@ -10,5 +10,6 @@
  * @returns {string} The generated HTML with PUI bindings so the client can attach to it as well
  */
 export function generateHtml(component) {
-	return component.template.replace(/<ClientApp *\/>/, component.client.template);
+	// The <ClientApp /> thing is just arbitrary just to see something on the client
+	return component.template.replace(/\<ClientApp *\/\>/, component.client.template);
 }
