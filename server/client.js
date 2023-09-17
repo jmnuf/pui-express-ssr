@@ -1,4 +1,4 @@
-// src/components/hello.ts
+// src/components/greet.ts
 function Greet(name) {
   return {
     name,
