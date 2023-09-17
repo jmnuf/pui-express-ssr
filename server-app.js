@@ -1,16 +1,30 @@
+// @ts-check
+import {readFileSync, readdirSync } from "node:fs";
+
 export class ServerApp {
 	title;
+	/** @type {any} */
+	client;
 	/** @type {{template: string}[]} */
 	extraData;
+	constructor() {
+		this.title = "";
+		this.extraData = [];
+		this.client = null;
+	}
 	/**
 	 * 
 	 * @param {Request} request server request to handle
 	 */
-	constructor(request) {
+	async setup(request) {
+		const ClientScript = await import("./server/client.js");
+		const ClientApp = ClientScript.ClientApp;
+		if (!ClientApp) {
+			throw new TypeError("Missing client app export");
+		}
+		this.client = new ClientApp();
 		const url = new URL(request.url);
-		console.log(url);
 		this.title = url.pathname.replace("/", "Home").replace(/\//g, ">");
-		this.extraMeta = [];
 	}
 
 	get template() {
@@ -23,12 +37,12 @@ export class ServerApp {
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<\${ data === } \${ data <=* extraMeta }/>
     <title>\${title}</title>
-		<script type="module" src="/src/main.ts"></script>
+		<script type="module" src="/src/index.ts"></script>
+		<\${ data === } \${ data <=* extraMeta }/>
   </head>
   <body>
-    <div id="app" pui="client ==="></div>
+    <ClientApp/>
   </body>
 </html>`;
 }
